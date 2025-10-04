@@ -1,11 +1,11 @@
 use std::io::{Result, Write};
 
+use crate::vec3;
+
 pub type Color = crate::vec3::Vec3;
 
 pub fn new(e1: f32, e2: f32, e3: f32) -> Color {
-    Color {
-        e: [e1, e2, e3],
-    }
+    vec3::new(e1, e2, e3)
 }
 
 pub fn write_color(out: &mut impl Write, pixel_color: &Color) -> Result<()> {

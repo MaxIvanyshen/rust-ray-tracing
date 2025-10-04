@@ -1,8 +1,17 @@
 use std::fmt;
 use std::ops::{Add, Sub, Mul, Div};
 
-pub struct Vec3 {
-    pub e: [f32; 3],
+
+pub struct Point3 {
+    e: [f32; 3],
+}
+
+pub type Vec3 = Point3;
+
+pub fn new(e1: f32, e2: f32, e3: f32) -> Vec3 {
+    Vec3{
+        e: [e1, e2, e3],
+    }
 }
 
 impl Vec3 {
