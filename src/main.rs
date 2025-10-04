@@ -1,4 +1,5 @@
 fn main() {
+
     let image_width = 256;
     let image_height = 256;
 
@@ -7,6 +8,7 @@ fn main() {
     println!("255");
 
     for j in 0..image_height {
+        eprint!("\rScanlines remaining {}", (image_height - j));
         for i in 0..image_width {
             let r = (i as f32) / ((image_width - 1) as f32);
             let g = (j as f32) / ((image_height - 1) as f32);
@@ -19,4 +21,6 @@ fn main() {
             println!("{} {} {}", ir, ig, ib);
         }
     }
+
+    eprint!("\rDone                        \n");
 }
