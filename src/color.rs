@@ -13,10 +13,10 @@ pub fn write_color(out: &mut impl Write, pixel_color: &Color) -> Result<()> {
     let g = pixel_color.y();
     let b = pixel_color.z();
 
-    let rbyte = (255.999 * r) as i32;
-    let gbyte = (255.999 * g) as i32;
-    let bbyte = (255.999 * b) as i32;
-
-    writeln!(out, "{} {} {}", rbyte, gbyte, bbyte)?;
+    writeln!(out, "{} {} {}", to_byte(r), to_byte(g), to_byte(b))?;
     Ok(())
+}
+
+fn to_byte(c: f32) -> i32 {
+    (255.999 * c) as i32
 }
