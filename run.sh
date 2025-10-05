@@ -5,8 +5,8 @@ filename="image"
 if [[ !$# -eq 0 ]] ; then
     filename=$1
 fi
-if [ -f $1.ppm ]; then
-    rm $1.ppm
+if [ -f $filename.ppm ]; then
+    rm $filename.ppm
 fi
 
 ./target/debug/rust-ray-tracing >> "$filename.ppm"
