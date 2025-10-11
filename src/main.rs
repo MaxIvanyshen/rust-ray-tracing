@@ -1,6 +1,6 @@
 use std::io::Result;
 
-use crate::color::Color;
+use crate::{color::Color};
 
 mod color;
 mod vec3;
@@ -17,10 +17,29 @@ static IMAGE_HEIGHT: i32 = match (IMAGE_WIDTH as f32 / ASPECT_RATIO) as i32 {
 const VIEWPORT_HEIGHT: f32 = 2.0;
 const VIEWPORT_WIDTH: f32 = VIEWPORT_HEIGHT * (IMAGE_WIDTH as f32 / IMAGE_HEIGHT as f32);
 
+fn hit_sphere(center: &vec3::Point3, radius: f32, r: &ray::Ray) -> f32 {
+    let oc = *center - *r.origin();
+    let a = r.direction().dot(r.direction());
+    let b = -2.0 * r.direction().dot(&oc);
+    let c = oc.dot(&oc) - (radius * radius);
+    let discriminant = b*b - 4.0 * a * c;
+
+    if discriminant < 0.0 {
+        return -1.0;
+    } else {
+        return (-b - (discriminant as f64).sqrt() as f32) / (2.0 * a);
+    }
+}
+
 fn ray_color(r: &ray::Ray) -> Color {
+    let t = hit_sphere(&vec3::new_point(0.0, 0.0, -1.0), 0.5, r);
+    if t > 0.0 {
+        let n = (r.at(t) - vec3::new(0.0, 0.0, -1.0)).unit_vector();
+        return 0.5 * color::new(n.x()+1.0, n.y()+1.0, n.z()+1.0);
+    }
     let unit_direction = r.direction().unit_vector();
     let a = 0.5 * (unit_direction.y() + 1.0);
-    (1.0 - a) * color::new(1.0, 1.0, 1.0) + a*color::new(0.8, 0.07, 0.07) // Red to white (top to bottom)
+    (1.0 - a) * color::new(1.0, 1.0, 1.0) + a*color::new(0.5, 0.7, 1.0)
 }
 
 fn main() -> Result<()> {
