@@ -19,6 +19,12 @@ impl fmt::Display for Vec3 {
 }
 
 impl Vec3 {
+    pub fn new(e1: f32, e2: f32, e3: f32) -> Vec3 {
+        Vec3 {
+            e: [e1, e2, e3],
+        }
+    }
+
     pub fn x(&self) -> f32 {
         self.e[0]
     }
@@ -173,15 +179,3 @@ impl std::default::Default for Vec3 {
 }
 
 pub type Point3 = Vec3;
-
-pub fn new(e1: f32, e2: f32, e3: f32) -> Vec3 {
-    Vec3 {
-        e: [e1, e2, e3],
-    }
-}
-
-pub fn new_point(e1: f32, e2: f32, e3: f32) -> Point3 {
-    Point3 {
-        e: [e1, e2, e3],
-    }
-}

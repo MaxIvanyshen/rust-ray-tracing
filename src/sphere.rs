@@ -1,21 +1,23 @@
-mod hittable;
-mod vec3;
+use crate::hittable::{Hittable, HitRecord};
 
 pub struct Sphere {
-    pub center: vec3::Point3,
+    pub center: crate::vec3::Point3,
     pub radius: f32,
 }
 
-fn new(center: vec3::Point3, radius: f32) -> Sphere {
-    Sphere { 
-        center: center,
-        radius: std::cmp::max(radius, 0.0),
+impl Sphere {
+    pub fn new(center: crate::vec3::Point3, radius: f32) -> Sphere {
+        let mut s = Sphere { center, radius };
+        if radius < 0.0 {
+           s.radius = 0.0;
+        }
+        s
     }
 }
 
-impl hittable::Hittable for Sphere {
-    fn hit(&self, ray: &ray::Ray, tmin: f32, tmax: f32, r: &mut HitRecord) -> bool {
-        let oc = self.center - ray.origin();
+impl Hittable for Sphere {
+    fn hit(&self, ray: &crate::ray::Ray, tmin: f32, tmax: f32, r: &mut HitRecord) -> bool {
+        let oc = self.center - *ray.origin();
         let a = ray.direction().length_squared();
         let h = ray.direction().dot(&oc);
         let c = oc.length_squared() - (self.radius * self.radius);
@@ -39,7 +41,7 @@ impl hittable::Hittable for Sphere {
         r.p = ray.at(r.t);
 
         let outward_normal = (r.p - self.center) / self.radius;
-        r.set_face_normal(ray, outward_normal);
+        r.set_face_normal(ray, &outward_normal);
 
         true
     }
