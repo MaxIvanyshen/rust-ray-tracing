@@ -19,8 +19,10 @@ To build and run this project, you need to have the Rust toolchain installed.
 
 ## 🚀 Usage
 ### 1. Clone the Repository
-git clone [https://github.com/MaxIvanyshen/rust-ray-tracing.git](https://github.com/MaxIvanyshen/rust-ray-tracing.git) \
+```
+git clone [https://github.com/MaxIvanyshen/rust-ray-tracing.git](https://github.com/MaxIvanyshen/rust-ray-tracing.git)
 cd rust-ray-tracing
+```
 
 ### 2. Build the Project
 This will compile the ray tracer executable.
